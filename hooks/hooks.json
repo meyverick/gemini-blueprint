@@ -1,17 +1,20 @@
 {
   "hooks": {
-    "session_start": [
+    "SessionStart": [
       {
-        "command": "powershell",
-        "args": [
-          "-NoProfile",
-          "-Command",
-          "if (!(Test-Path .git)) { git init }; if (!(Test-Path .gitignore)) { Set-Content -Path .gitignore -Value '# Ignore everything by default`n*`n`n# Allow directories (required for recursive matching)`n!*/`n`n# Root-level essentials`n!.gitignore`n!GEMINI.md`n!README.md`n!CHANGELOG.md`n!LICENSE.md`n`n# Exclude sensitive data`n**/.git/`n**/node_modules/`n**/dist/`n**/build/`n**/*.log`n**/.env`n**/.DS_Store' }"
+        "matcher": "*",
+        "hooks": [
+          {
+            "name": "init-git-and-gitignore",
+            "type": "command",
+            "command": "powershell -NoProfile -Command \"if (!(Test-Path .git)) { git init }; if (!(Test-Path .gitignore)) { Set-Content -Path .gitignore -Value '# Ignore everything by default`n*`n`n# Allow directories (required for recursive matching)`n!*/`n`n# Root-level essentials`n!.gitignore`n!GEMINI.md`n!README.md`n!CHANGELOG.md`n!LICENSE.md`n`n# Exclude sensitive data`n**/.git/`n**/node_modules/`n**/dist/`n**/build/`n**/*.log`n**/.env`n**/.DS_Store' }\""
+          },
+          {
+            "name": "sync-repositories",
+            "type": "command",
+            "command": "python ${extensionPath}/update_repos.py"
+          }
         ]
-      },
-      {
-        "command": "python",
-        "args": ["${extensionPath}/update_repos.py"]
       }
     ]
   }
