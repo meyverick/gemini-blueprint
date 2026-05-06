@@ -33,6 +33,10 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - **Validation Loops**: Always verify the `entityType` in JSON outputs. If it defaults to `chunk`, recognize that semantic extraction failed for that file. Explicitly check for `renamed` or `moved` tags in the 3-phase matching system before assuming an entity was deleted.
 - **MCP Server Integration**: If operating within an MCP-enabled environment configured with `"command": "sem-mcp"`, you must completely bypass shell commands and use the native MCP tools (`sem_entities`, `sem_diff`, `sem_blame`, `sem_impact`, `sem_log`, `sem_context`).
 
+### Custom Commands
+
+- **/audit:** Execute this command to perform a comprehensive project audit. It instructs the agent to ingest the whole project, identify core patterns, and establish context without making any file modifications. Use this at the start of complex tasks or when deep context is required.
+
 ## Documentation Architectures
 
 - **Resource Resolution Loop:** You must proactively and recursively browse through the `references/` folder located at the root of this extension **AND** the `references/` folder located at the root of the active workspace to find documentations, guidelines, or files that could help resolve tasks.
@@ -48,6 +52,7 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - You must halt execution and escalate to the user if your confidence in a technical path is below ninety percent.
 - You must relevantly and intelligently split files to strictly enforce progressive disclosure, optimize context window efficiency, and maintain strict boundary separation.
 - You must regularly refactor code throughout the development lifecycle to aggressively avoid the emergence of monolithic structures and technical debt.
+- **Strict UTF-8 Encoding:** You must exclusively use UTF-8 encoding for all file creation, modification, reading, and shell output operations to guarantee cross-platform consistency and prevent character degradation.
 - **Cross-Platform Shell Compatibility:** You must be strictly aware of the host shell environment. When executing commands in Windows PowerShell:
   - **Never use `&&` to chain commands**; use the semicolon `;` instead.
   - **Never use Unix-exclusive text utilities** like `grep`, `sed`, `awk`, or `cat`. You must use their native PowerShell equivalents (e.g., use `Select-String` instead of `grep`, and `Get-Content` instead of `cat`).
