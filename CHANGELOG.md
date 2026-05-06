@@ -22,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - 7-Zip exclusion logic in `backup_sync.py` to ensure reliable folder skipping on Windows environments.
+- Corrected `hooks.json` structure by wrapping hook events in a required `"hooks"` property to ensure compliance with Gemini CLI extension standards.
