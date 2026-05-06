@@ -137,27 +137,34 @@ def main():
     print(f"Bump Type:       {bump_type.upper()}")
     print(f"New Version:     {COLORS['YELLOW']}{new_version}{COLORS['NC']}\n")
 
-    # 3. Apply changes
+    # 3. Pre-flight Packaging Check
+    confirm_pkg = input(f"Run pre-flight packaging check? (y/n): ").lower()
+    if confirm_pkg == 'y':
+        print(f"{COLORS['CYAN']}📦 Running package.py...{COLORS['NC']}")
+        subprocess.run([sys.executable, "package.py"], check=True)
+        print(f"{COLORS['GREEN']}✅ Packaging check passed.{COLORS['NC']}\n")
+
+    # 4. Apply changes
     if not promote_changelog(new_version):
         print(f"{COLORS['RED']}Release aborted: No content to release.{COLORS['NC']}")
         sys.exit(1)
         
     update_manifest(new_version)
 
-    # 4. Git Operations
+    # 5. Git Operations
     print(f"\n{COLORS['CYAN']}📦 Orchestrating Git sequence...{COLORS['NC']}")
     run_cmd(f'git add {MANIFEST_FILE} {CHANGELOG_FILE}')
     run_cmd(f'git commit -m "chore(release): {new_version}"')
     run_cmd(f'git tag -a v{new_version} -m "Release v{new_version}"')
 
-    # 5. Push
+    # 6. Push
     confirm = input(f"\nPush changes and tag v{new_version} to origin? (y/n): ").lower()
     if confirm == 'y':
         print(f"{COLORS['CYAN']}Pushing to GitHub...{COLORS['NC']}")
         run_cmd("git push origin main")
         run_cmd(f"git push origin v{new_version}")
         print(f"\n{COLORS['GREEN']}✅ Release v{new_version} successfully pushed!{COLORS['NC']}")
-        print(f"{COLORS['YELLOW']}GitHub Action will now create the formal release on the web UI.{COLORS['NC']}")
+        print(f"{COLORS['YELLOW']}GitHub Action will now build the final archives and create the release.{COLORS['NC']}")
     else:
         print(f"\n{COLORS['YELLOW']}Release committed and tagged locally, but not pushed.{COLORS['NC']}")
 
