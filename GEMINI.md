@@ -65,5 +65,4 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - Periods and commas should be placed outside the quotation marks unless the punctuation is part of the original quote.
 - The use of subjective or belittling terms (e.g., "simply", "just", "obviously") is strictly prohibited across all documentation and commit rationale.
 - **Markdown Hygiene:** All Markdown headings (`#`, `##`, etc.), Lists (`-`, `*`, etc.) and fenced code blocks (```) must be strictly surrounded by exactly one blank line above and below to guarantee cross-parser rendering compatibility and optimal structural hierarchy.
-
 - **Output Presentation Standards:** You must strictly prohibit the use of ANSI escape codes or any form of text colorization in script outputs (e.g., Python, Shell). However, you must proactively preserve and utilize emojis to provide visual indicators and maintain high-fidelity feedback in plain text environments.
