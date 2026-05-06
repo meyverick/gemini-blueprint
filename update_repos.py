@@ -53,42 +53,6 @@ def update_directory(target_dir: Path, description: str) -> None:
         print(f"{COLORS['YELLOW']}Notice: Directory {target_dir} does not exist. Skipping sync for {description}.{COLORS['NC']}")
         return
 
-    # Clone missing repositories from '.repos' file
-    repos_file_path = target_dir / '.repos'
-    if repos_file_path.exists():
-        print(f"{COLORS['CYAN']}📄 Checking missing repositories from '.repos' file...{COLORS['NC']}\n")
-        
-        # Use utf-8-sig to handle potential BOM
-        with open(repos_file_path, "r", encoding="utf-8-sig") as f:
-            urls = [line.strip() for line in f if line.strip() and not line.strip().startswith('#')]
-        
-        for url in urls:
-            match = re.search(r'/([^/]+?)(?:\.git)?$', url)
-            if match:
-                repo_name = match.group(1)
-                repo_path = target_dir / repo_name
-
-                # Robust check: if directory exists but .git is missing, treat as missing
-                if not repo_path.exists() or not (repo_path / '.git').exists():
-                    if repo_path.exists():
-                        print(f"{COLORS['YELLOW']}⚠️  Directory [{repo_name}] exists but is not a git repository. Re-initializing...{COLORS['NC']}")
-                        # If it's an empty dir, we can clone into it or remove it. 
-                        # To be safe, we'll try to clone into the parent.
-                    
-                    print(f"{COLORS['YELLOW']}📦 Synchronizing repository: [{repo_name}]...{COLORS['NC']}")
-                    try:
-                        # If the directory exists and is empty, git clone will fail unless we handle it.
-                        # We'll remove it if it exists but is not a git repo to ensure a clean clone.
-                        if repo_path.exists():
-                            import shutil
-                            shutil.rmtree(repo_path)
-                            
-                        subprocess.run(["git", "clone", url, repo_name], cwd=str(target_dir), check=True)
-                        print(f"{COLORS['GREEN']}  >> Successfully synchronized.{COLORS['NC']}")
-                    except Exception as e:
-                        print(f"{COLORS['RED']}  >> Failed to synchronize {url}: {e}{COLORS['NC']}", file=sys.stderr)
-                    print('------------------------------------')
-
     # Enable long paths globally for Windows compatibility
     run_cmd(["git", "config", "--global", "core.longpaths", "true"], target_dir, capture_output=True, ignore_errors=True)
 
@@ -127,26 +91,15 @@ def update_directory(target_dir: Path, description: str) -> None:
     print(f"\n{COLORS['GREEN']}✅ Process completed for {description}.{COLORS['NC']}\n")
 
 def update_repositories() -> None:
-    # Resolve the directory where this script is located (the Extension directory)
-    extension_root = Path(__file__).resolve().parent
-    extension_dir = (extension_root / 'references' / 'repositories').resolve()
-    
     # Resolve the current working directory (the Workspace directory)
     workspace_root = Path.cwd().resolve()
     workspace_dir = (workspace_root / 'references' / 'repositories').resolve()
     
     print(f"{COLORS['CYAN']}🔍 Path Discovery:{COLORS['NC']}")
-    print(f"   Extension Root: {extension_root}")
     print(f"   Workspace Root: {workspace_root}\n")
 
-    # Sync Extension repositories first
-    update_directory(extension_dir, "Extension")
-    
-    # Sync Workspace repositories if different from Extension
-    if workspace_dir != extension_dir:
-        update_directory(workspace_dir, "Workspace")
-    else:
-        print(f"{COLORS['CYAN']}ℹ️  Workspace and Extension paths are identical. Skipping redundant Workspace sync.{COLORS['NC']}\n")
+    # Sync Workspace repositories
+    update_directory(workspace_dir, "Workspace")
 
 if __name__ == "__main__":
     update_repositories()
