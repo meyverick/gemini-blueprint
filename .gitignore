@@ -1,4 +1,7 @@
-# Ignore everything by default
+# Distribution and Release
+dist/
+release/
+
 *
 
 # Allow directories (required for recursive matching)
@@ -13,6 +16,7 @@
 !gemini-extension.json
 !update_repos.py
 !release.py
+!package.py
 !package.json
 !package-lock.json
 !.github/**
@@ -22,6 +26,7 @@
 !agents/**
 !policies/**
 !hooks/**
+!commands/**
 !.agents/**
 !references/**
 !wiki/**

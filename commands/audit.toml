@@ -1,0 +1,4 @@
+prompt = """
+Read and audit the whole project to ingest the project and prepare your context. 
+Do not edit any file. Focus on identifying core patterns, architectural intent, and cross-module dependencies.
+"""
