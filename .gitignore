@@ -15,6 +15,7 @@
 !release.py
 !package.json
 !package-lock.json
+!.github/**
 
 # Extension components
 !skills/**

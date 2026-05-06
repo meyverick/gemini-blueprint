@@ -1,0 +1,39 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract Release Notes
+        id: extract_notes
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          # Extract section from CHANGELOG.md between the target version header and the next header
+          # Uses sed to grab lines between '## [VERSION]' and the next '## ['
+          NOTES=$(sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$d')
+          
+          # Clean up the output for GitHub Actions output parameters
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: ${{ steps.extract_notes.outputs.notes }}
+          name: Release v${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
