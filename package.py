@@ -35,20 +35,31 @@ def rmtree_error_handler(func, path, exc_info):
     it attempts to add write permission and then retries.
     """
     import stat
-    if not os.access(path, os.W_OK):
-        os.chmod(path, stat.S_IWUSR)
+    
+    # Handle the path being a directory or a file
+    try:
+        if os.path.isdir(path):
+            os.chmod(path, stat.S_IWRITE)
+        else:
+            os.chmod(path, stat.S_IWRITE)
         func(path)
-    else:
-        raise
+    except Exception as e:
+        # If chmod + retry fails, it's likely a file lock. 
+        # We can't do much about locks in a script, but we can try to be less disruptive.
+        print(f"  >> Notice: Could not remove {path}: {e}")
 
 def clean():
     """Removes old dist and release directories."""
-    if DIST_DIR.exists():
-        shutil.rmtree(DIST_DIR, onerror=rmtree_error_handler)
-    if ARCHIVE_DIR.exists():
-        shutil.rmtree(ARCHIVE_DIR, onerror=rmtree_error_handler)
-    DIST_DIR.mkdir()
-    ARCHIVE_DIR.mkdir()
+    # Try a simple rmtree first, then fall back to error handler
+    for target in [DIST_DIR, ARCHIVE_DIR]:
+        if target.exists():
+            try:
+                shutil.rmtree(target, onerror=rmtree_error_handler)
+            except Exception as e:
+                print(f"⚠️  Warning: Could not fully clean {target}: {e}")
+    
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
 
 def package():
     """Copies included files to the dist directory and creates archives."""
