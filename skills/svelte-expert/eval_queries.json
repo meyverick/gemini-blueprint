@@ -1,0 +1,22 @@
+[
+  {
+    "prompt": "Refactor this Svelte 4 component to use Svelte 5 runes and modern event handlers.",
+    "should_trigger": true
+  },
+  {
+    "prompt": "Create a highly performant SvelteKit server load function that fetches user profile data.",
+    "should_trigger": true
+  },
+  {
+    "prompt": "How do I implement a shared state store across deeply nested components in Svelte 5?",
+    "should_trigger": true
+  },
+  {
+    "prompt": "Write a React component for a navigation bar.",
+    "should_trigger": false
+  },
+  {
+    "prompt": "How do I configure Webpack to bundle my CSS?",
+    "should_trigger": false
+  }
+]

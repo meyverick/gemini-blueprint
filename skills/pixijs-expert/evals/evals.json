@@ -1,0 +1,31 @@
+[
+  {
+    "prompt": "Write a PixiJS v8 custom Container class that loads an image, displays it, and properly cleans up when destroyed. Ensure it adheres to the Law of Demeter.",
+    "expected_output": "A custom Container class with a constructor that loads an asset safely, appends it locally, and overrides the destroy method to clean up textures and references.",
+    "assertions": [
+      "The output class must extend Container",
+      "The code must use Assets.load",
+      "The code must override the destroy() method",
+      "No deep property access (e.g., .parent.parent) should exist"
+    ]
+  },
+  {
+    "prompt": "Generate a custom PixiJS v8 Filter using WGSL and GLSL. It should take a custom uniform for time.",
+    "expected_output": "A Filter implementation utilizing the v8 architecture, providing both WGSL and GLSL shader strings, and managing uniform updates efficiently.",
+    "assertions": [
+      "Must instantiate a Filter or use Filter.from",
+      "Must contain wgsl source string",
+      "Must contain glsl source string",
+      "Uniforms object must be explicitly defined"
+    ]
+  },
+  {
+    "prompt": "Integrate a PixiJS application within a Svelte 5 component. Make sure the PixiJS instance reacts to a reactive Svelte state without proxying the Pixi objects.",
+    "expected_output": "A Svelte component using $state for data, initializing Pixi inside an $effect, and updating standard properties without storing Pixi objects in the $state primitive.",
+    "assertions": [
+      "Must use $effect for Pixi app initialization",
+      "PixiJS objects (Application, Sprite, Container) must NOT be assigned to $state variables",
+      "Must handle component unmount by destroying the Pixi Application"
+    ]
+  }
+]

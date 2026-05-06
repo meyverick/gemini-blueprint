@@ -1,0 +1,28 @@
+[
+  {
+    "prompt": "Implement an IPC command in Tauri that fetches user data based on an ID. The implementation must ensure separation of concerns and avoid deep chaining.",
+    "expected_output": "A Rust #[tauri::command] that delegates the data fetching to a separate domain module, returning a strongly typed serialized response. The implementation rigorously avoids the use of personal pronouns.",
+    "assertions": [
+      "The response contains a #[tauri::command] macro.",
+      "The response maintains a strict third-person objective tone (no 'I', 'we', 'you').",
+      "The command delegates internal logic to another module to enforce SoC and the Law of Demeter."
+    ]
+  },
+  {
+    "prompt": "Detail the gotchas regarding event listeners in Tauri v2.",
+    "expected_output": "An objective summary stating that frontend `listen()` calls must be explicitly unsubscribed on component unmount to prevent memory leaks and duplicate IPC traffic.",
+    "assertions": [
+      "The response explicitly mentions 'unmount'.",
+      "The response explicitly mentions 'unsubscribe'.",
+      "The response utilizes a third-person objective tone."
+    ]
+  },
+  {
+    "prompt": "Provide instructions for validating the Tauri project configuration.",
+    "expected_output": "Instructions directing the execution of the validation script utilizing the `uv run` command as part of a formal validation loop.",
+    "assertions": [
+      "The response includes the 'uv run' command.",
+      "The response references 'scripts/validate_tauri_setup.py'."
+    ]
+  }
+]

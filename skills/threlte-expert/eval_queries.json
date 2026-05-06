@@ -1,0 +1,18 @@
+[
+  {
+    "query": "Refactor this 3D scene to use Svelte 5 Runes and optimize the particle system with an InstancedMesh.",
+    "should_trigger": true
+  },
+  {
+    "query": "Create a liquid glass material effect for a 3D model using Threlte.",
+    "should_trigger": true
+  },
+  {
+    "query": "Update the README to include the new build instructions.",
+    "should_trigger": false
+  },
+  {
+    "query": "Fix the layout issues in the standard Svelte + Tailwind navigation bar.",
+    "should_trigger": false
+  }
+]

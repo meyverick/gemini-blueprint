@@ -1,0 +1,22 @@
+[
+  {
+    "prompt": "Create a high-performance WebGPU particle system using PixiJS v8.",
+    "should_trigger": true
+  },
+  {
+    "prompt": "How do I fix memory leaks when destroying PixiJS Containers?",
+    "should_trigger": true
+  },
+  {
+    "prompt": "Write a WGSL shader filter for PixiJS and apply it to a sprite.",
+    "should_trigger": true
+  },
+  {
+    "prompt": "How do I align text vertically in a Svelte 5 component using CSS?",
+    "should_trigger": false
+  },
+  {
+    "prompt": "Explain the SOLID principles for standard object-oriented programming.",
+    "should_trigger": false
+  }
+]

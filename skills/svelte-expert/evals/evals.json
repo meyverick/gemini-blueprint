@@ -1,0 +1,20 @@
+[
+  {
+    "prompt": "Write a Svelte 5 component named 'Counter.svelte' that accepts a 'startCount' prop (defaulting to 0), displays the current count, and includes a button to increment it. Use $props, $state, and modern event handlers.",
+    "expected_output": "A valid Svelte 5 component utilizing Runes for props and state, avoiding legacy syntax.",
+    "assertions": [
+      "The output contains '$props()'.",
+      "The output contains '$state('.",
+      "The output contains 'onclick=' instead of 'on:click='.",
+      "The output does not contain 'export let'."
+    ]
+  },
+  {
+    "prompt": "Generate a SvelteKit form action in '+page.server.ts' to handle a user login submission.",
+    "expected_output": "A valid SvelteKit server load file exporting an actions object with a login method.",
+    "assertions": [
+      "The output exports a 'satisfies Actions' object.",
+      "The output handles form data extraction (e.g., 'request.formData()')."
+    ]
+  }
+]

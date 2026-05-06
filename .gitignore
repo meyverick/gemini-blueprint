@@ -1,0 +1,38 @@
+# Ignore everything by default
+*
+
+# Allow directories (required for recursive matching)
+!*/
+
+# Root-level essentials
+!.gitignore
+!GEMINI.md
+!README.md
+!CHANGELOG.md
+!LICENSE.md
+!gemini-extension.json
+!update_repos.py
+!package.json
+!package-lock.json
+
+# Extension components
+!skills/**
+!agents/**
+!policies/**
+!hooks/**
+!.agents/**
+!references/**
+
+# Exclude bulky repository clones (keep only the manifest/script)
+references/repositories/*/
+
+# Global exclusions for sensitive or transient data
+**/.git/**
+**/node_modules/**
+**/dist/**
+**/build/**
+**/*.log
+**/.env
+**/.DS_Store
+**/*.bak
+**/*.tmp

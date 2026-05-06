@@ -1,0 +1,27 @@
+[
+  {
+    "prompt": "Create a Threlte component rendering 5000 cubes rotating in space. Use Svelte 5 Runes for any state.",
+    "expected_output": "A Threlte component utilizing T.InstancedMesh, useTask, and Svelte 5 Runes.",
+    "assertions": [
+      "Contains <T.InstancedMesh>",
+      "Contains .needsUpdate = true",
+      "Contains $state"
+    ]
+  },
+  {
+    "prompt": "Build a liquid glass sphere with Threlte.",
+    "expected_output": "A component with MeshPhysicalMaterial configured with transmission.",
+    "assertions": [
+      "Contains <T.MeshPhysicalMaterial>",
+      "Contains transmission"
+    ]
+  },
+  {
+    "prompt": "Implement a camera controller that follows an entity without violating the Law of Demeter.",
+    "expected_output": "A component that accepts a target reference via props rather than deep scene traversal.",
+    "assertions": [
+      "Uses component props for target passing",
+      "Does not use scene.getObjectByName"
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "query": "Architect a secure IPC command for sending large binary files in a Tauri app.",
+    "should_trigger": true
+  },
+  {
+    "query": "Review the Rust backend code for the desktop application to ensure strict adherence to the Law of Demeter.",
+    "should_trigger": true
+  },
+  {
+    "query": "Configure a generic React frontend application.",
+    "should_trigger": false
+  },
+  {
+    "query": "Migrate the tauri.conf.json security allowlist to the granular v2 capabilities architecture.",
+    "should_trigger": true
+  },
+  {
+    "query": "Compile a standard Rust CLI utility.",
+    "should_trigger": false
+  }
+]

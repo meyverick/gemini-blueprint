@@ -1,0 +1,24 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Repository manifest `references/repositories/repositories` for automated workspace restoration.
+- Modern Python implementation of `update_repos.py` for cross-platform repository synchronization.
+- `Maintenance and Backups` section in technical wiki documenting restoration procedures.
+
+### Changed
+- Optimized `backup_sync.py` with a lightweight strategy that harvests repository URLs into a manifest while excluding bulky source folders.
+- Hardcoded backup destination to `D:/Files/development/backups/` to ensure structural consistency and machine portability.
+- Updated `.gitignore` to explicitly exclude repository subfolders while preserving manifest files.
+
+### Removed
+- Legacy `update_repos.js` in favor of the new Python implementation.
+
+### Fixed
+- 7-Zip exclusion logic in `backup_sync.py` to ensure reliable folder skipping on Windows environments.
