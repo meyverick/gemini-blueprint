@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.0] - 2026-05-06
 
 ### Added
-- Repository manifest `references/repositories/repositories` for automated workspace restoration.
+- Repository manifest `references/repositories/.repos` for automated workspace restoration.
 - Modern Python implementation of `update_repos.py` for cross-platform repository synchronization.
 - `Maintenance and Backups` section in technical wiki documenting restoration procedures.
 - Comprehensive technical wiki structure (Architecture, Agent-Workflows, Skill-Development) initialized for independent wiki repository management.

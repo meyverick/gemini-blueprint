@@ -7,7 +7,7 @@ The Gemini Blueprint Workspace includes automated utilities for repository synch
 Bulk synchronization of repositories located in `references/repositories/` is managed via `update_repos.py`.
 
 ### Features
-- **Auto-Cloning**: Automatically clones missing repositories listed in the `repositories` manifest.
+- **Auto-Cloning**: Automatically clones missing repositories listed in the `.repos` manifest.
 - **Dirty State Protection**: Skips repositories with uncommitted changes to prevent data loss.
 - **Fast-Forward Updates**: Performs non-destructive `git pull --ff-only` with pruning.
 

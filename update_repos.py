@@ -46,10 +46,10 @@ def update_directory(target_dir: Path, description: str) -> None:
         print(f"{COLORS['YELLOW']}Notice: Directory {target_dir} does not exist. Skipping sync for {description}.{COLORS['NC']}")
         return
 
-    # Clone missing repositories from 'repositories' file
-    repos_file_path = target_dir / 'repositories'
+    # Clone missing repositories from '.repos' file
+    repos_file_path = target_dir / '.repos'
     if repos_file_path.exists():
-        print(f"{COLORS['CYAN']}📄 Checking missing repositories from 'repositories' file...{COLORS['NC']}\n")
+        print(f"{COLORS['CYAN']}📄 Checking missing repositories from '.repos' file...{COLORS['NC']}\n")
         
         # Use utf-8-sig to handle potential BOM
         with open(repos_file_path, "r", encoding="utf-8-sig") as f:
@@ -93,7 +93,7 @@ def update_directory(target_dir: Path, description: str) -> None:
         git_path = repo_path / '.git'
         
         if git_path.exists():
-            # We already updated it if it was in the 'repositories' list above, 
+            # We already updated it if it was in the '.repos' list above, 
             # but this loop handles repos NOT in the list or ensures they are current.
             print(f"{COLORS['YELLOW']}🔄 Checking for updates in [{repo_path.name}]...{COLORS['NC']}")
 
