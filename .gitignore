@@ -22,6 +22,7 @@
 !hooks/**
 !.agents/**
 !references/**
+!wiki/**
 
 # Exclude bulky repository clones (keep only the manifest/script)
 references/repositories/*/
