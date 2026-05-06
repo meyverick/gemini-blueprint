@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.9] - 2026-05-06
+
 ### Changed
 - Disabled ANSI escape sequence colorization in `update_repos.py`, `release.py`, and `package.py` while ensuring mandatory emoji preservation in script outputs.
 - Refined the `/audit` command prompt in `commands/audit.toml` for enhanced architectural mapping and contextual depth.
