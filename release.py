@@ -142,14 +142,7 @@ def main():
     print(f"Bump Type:       {bump_type.upper()}")
     print(f"New Version:     {COLORS['YELLOW']}{new_version}{COLORS['NC']}\n")
 
-    # 3. Pre-flight Packaging Check
-    confirm_pkg = input(f"Run pre-flight packaging check? (y/n): ").lower()
-    if confirm_pkg == 'y':
-        print(f"{COLORS['CYAN']}📦 Running package.py...{COLORS['NC']}")
-        subprocess.run([sys.executable, "package.py"], check=True)
-        print(f"{COLORS['GREEN']}✅ Packaging check passed.{COLORS['NC']}\n")
-
-    # 4. Apply changes
+    # 3. Apply changes
     if not promote_changelog(new_version):
         print(f"{COLORS['RED']}Release aborted: No content to release.{COLORS['NC']}")
         sys.exit(1)
@@ -162,9 +155,17 @@ def main():
     run_cmd(f'git commit -m "chore(release): {new_version}"')
     run_cmd(f'git tag -a v{new_version} -m "Release v{new_version}"')
 
-    # 6. Push
+    # 6. Push & Final Validation
     confirm = input(f"\nPush changes and tag v{new_version} to origin? (y/n): ").lower()
     if confirm == 'y':
+        print(f"{COLORS['CYAN']}📦 Running pre-flight packaging check...{COLORS['NC']}")
+        try:
+            subprocess.run([sys.executable, "package.py"], check=True)
+            print(f"{COLORS['GREEN']}✅ Packaging check passed.{COLORS['NC']}\n")
+        except subprocess.CalledProcessError:
+            print(f"{COLORS['RED']}❌ Packaging check failed. Aborting push.{COLORS['NC']}")
+            sys.exit(1)
+
         print(f"{COLORS['CYAN']}Pushing to GitHub...{COLORS['NC']}")
         run_cmd("git push origin main")
         run_cmd(f"git push origin v{new_version}")
