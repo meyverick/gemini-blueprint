@@ -10,6 +10,7 @@ import sys
 import subprocess
 import re
 import io
+import os
 from pathlib import Path
 from typing import List
 
@@ -18,6 +19,10 @@ if isinstance(sys.stdout, io.TextIOWrapper):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 if isinstance(sys.stderr, io.TextIOWrapper):
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+
+# Enable ANSI support on Windows
+if sys.platform == "win32":
+    os.system("")
 
 # Visual Constants
 COLORS = {

@@ -9,8 +9,13 @@ import json
 import re
 import subprocess
 import sys
+import os
 from datetime import datetime
 from pathlib import Path
+
+# Enable ANSI support on Windows
+if sys.platform == "win32":
+    os.system("")
 
 # Configuration
 MANIFEST_FILE = Path("gemini-extension.json")
