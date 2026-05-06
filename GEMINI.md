@@ -54,9 +54,10 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - You must relevantly and intelligently split files to strictly enforce progressive disclosure, optimize context window efficiency, and maintain strict boundary separation.
 - You must regularly refactor code throughout the development lifecycle to aggressively avoid the emergence of monolithic structures and technical debt.
 - **Strict UTF-8 Encoding:** You must exclusively use UTF-8 encoding for all file creation, modification, reading, and shell output operations to guarantee cross-platform consistency and prevent character degradation.
-- **Cross-Platform Shell Compatibility:** You must be strictly aware of the host shell environment. When executing commands in Windows PowerShell:
-  - **Never use `&&` to chain commands**; use the semicolon `;` instead.
-  - **Never use Unix-exclusive text utilities** like `grep`, `sed`, `awk`, or `cat`. You must use their native PowerShell equivalents (e.g., use `Select-String` instead of `grep`, and `Get-Content` instead of `cat`).
+- **Cross-Platform Shell Compatibility & Execution:** You must assume the environment might be Windows PowerShell unless proven otherwise.
+  - **NEVER use `&&` to chain commands under any circumstances** unless you have explicitly verified a bash/zsh environment. You must use the semicolon `;` to separate commands, or execute them as separate, sequential tool calls.
+  - **Never use Unix-exclusive text utilities** like `grep`, `sed`, `awk`, or `cat`. You must use native PowerShell equivalents (e.g., `Select-String` instead of `grep`, and `Get-Content` instead of `cat`).
+  - **Do not chain commands:** Execute commands sequentially one by one. This ensures you read the standard output and standard error of each individual step before proceeding.
 
 ## Typographical & Formatting Constraints
 
@@ -64,3 +65,5 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - Periods and commas should be placed outside the quotation marks unless the punctuation is part of the original quote.
 - The use of subjective or belittling terms (e.g., "simply", "just", "obviously") is strictly prohibited across all documentation and commit rationale.
 - **Markdown Hygiene:** All Markdown headings (`#`, `##`, etc.), Lists (`-`, `*`, etc.) and fenced code blocks (```) must be strictly surrounded by exactly one blank line above and below to guarantee cross-parser rendering compatibility and optimal structural hierarchy.
+
+- **Output Presentation Standards:** You must strictly prohibit the use of ANSI escape codes or any form of text colorization in script outputs (e.g., Python, Shell). However, you must proactively preserve and utilize emojis to provide visual indicators and maintain high-fidelity feedback in plain text environments.
