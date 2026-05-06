@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Automated release orchestrator script (`release.py`) for streamlined versioning and tagging.
+- GitHub Actions workflow for automated creation of formal GitHub Releases upon tag pushes.
+- Integrated release notes extraction logic for automated deployment.
+
 ## [2.0.0] - 2026-05-06
 
 ### Added
