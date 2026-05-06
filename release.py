@@ -153,9 +153,11 @@ def main():
     # 5. Push
     confirm = input(f"\nPush changes and tag v{new_version} to origin? (y/n): ").lower()
     if confirm == 'y':
+        print(f"{COLORS['CYAN']}Pushing to GitHub...{COLORS['NC']}")
         run_cmd("git push origin main")
         run_cmd(f"git push origin v{new_version}")
         print(f"\n{COLORS['GREEN']}✅ Release v{new_version} successfully pushed!{COLORS['NC']}")
+        print(f"{COLORS['YELLOW']}GitHub Action will now create the formal release on the web UI.{COLORS['NC']}")
     else:
         print(f"\n{COLORS['YELLOW']}Release committed and tagged locally, but not pushed.{COLORS['NC']}")
 
