@@ -18,8 +18,6 @@ INCLUDE_LIST = [
     "agents",
     "commands",
     "hooks",
-    "policies",
-    "references",
     "skills",
     "wiki",
     "gemini-extension.json",
@@ -68,7 +66,12 @@ def package():
         print(f"  >> Creating {archive_name}.{ext}...")
         shutil.make_archive(str(archive_name), format, DIST_DIR)
 
-    print("\n✅ Packaging complete. Assets are in the 'release/' directory.")
+    # Clean up transient build directory
+    print(f"\n🧹 Cleaning up transient build directory...")
+    shutil.rmtree(DIST_DIR)
+
+    print(f"\n✅ Packaging complete. Assets are in the '{ARCHIVE_DIR}/' directory.")
+
 
 if __name__ == "__main__":
     clean()
