@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated architectural diagrams in `README.md` and `wiki/Architecture.md` to reflect the expanded skills layer.
 - Corrected legacy references to the `policies/` directory in `README.md` and `wiki/Architecture.md`, redirecting to the current `commands/` and `hooks/` implementation.
 - Refined `wiki/Skill-Development.md` with a categorized breakdown of Core, Framework Expert, and Utility skills.
+- Updated `wiki/Repository-Maintenance.md` to reflect that `update_repos.py` now only synchronizes existing repositories and no longer performs auto-cloning.
 
 ## [2.1.9] - 2026-05-06
 
