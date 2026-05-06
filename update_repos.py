@@ -38,6 +38,7 @@ def run_cmd(command: List[str], cwd: Path, capture_output: bool = False, ignore_
         return ""
 
 def update_directory(target_dir: Path, description: str) -> None:
+    target_dir = target_dir.resolve()
     print(f"{COLORS['CYAN']}🚀 Starting Bulk Repository Sync for {description}...{COLORS['NC']}")
     print(f"{COLORS['CYAN']}Target Directory: {target_dir}{COLORS['NC']}\n")
 
@@ -50,7 +51,8 @@ def update_directory(target_dir: Path, description: str) -> None:
     if repos_file_path.exists():
         print(f"{COLORS['CYAN']}📄 Checking missing repositories from 'repositories' file...{COLORS['NC']}\n")
         
-        with open(repos_file_path, "r", encoding="utf-8") as f:
+        # Use utf-8-sig to handle potential BOM
+        with open(repos_file_path, "r", encoding="utf-8-sig") as f:
             urls = [line.strip() for line in f if line.strip() and not line.strip().startswith('#')]
         
         for url in urls:
@@ -59,19 +61,31 @@ def update_directory(target_dir: Path, description: str) -> None:
                 repo_name = match.group(1)
                 repo_path = target_dir / repo_name
 
-                if not repo_path.exists():
-                    print(f"{COLORS['YELLOW']}📦 Cloning missing repository: [{repo_name}]...{COLORS['NC']}")
+                # Robust check: if directory exists but .git is missing, treat as missing
+                if not repo_path.exists() or not (repo_path / '.git').exists():
+                    if repo_path.exists():
+                        print(f"{COLORS['YELLOW']}⚠️  Directory [{repo_name}] exists but is not a git repository. Re-initializing...{COLORS['NC']}")
+                        # If it's an empty dir, we can clone into it or remove it. 
+                        # To be safe, we'll try to clone into the parent.
+                    
+                    print(f"{COLORS['YELLOW']}📦 Synchronizing repository: [{repo_name}]...{COLORS['NC']}")
                     try:
-                        subprocess.run(["git", "clone", url], cwd=str(target_dir), check=True)
-                        print(f"{COLORS['GREEN']}  >> Successfully cloned.{COLORS['NC']}")
-                    except subprocess.CalledProcessError:
-                        print(f"{COLORS['RED']}  >> Failed to clone {url}.{COLORS['NC']}", file=sys.stderr)
+                        # If the directory exists and is empty, git clone will fail unless we handle it.
+                        # We'll remove it if it exists but is not a git repo to ensure a clean clone.
+                        if repo_path.exists():
+                            import shutil
+                            shutil.rmtree(repo_path)
+                            
+                        subprocess.run(["git", "clone", url, repo_name], cwd=str(target_dir), check=True)
+                        print(f"{COLORS['GREEN']}  >> Successfully synchronized.{COLORS['NC']}")
+                    except Exception as e:
+                        print(f"{COLORS['RED']}  >> Failed to synchronize {url}: {e}{COLORS['NC']}", file=sys.stderr)
                     print('------------------------------------')
 
     # Enable long paths globally for Windows compatibility
     run_cmd(["git", "config", "--global", "core.longpaths", "true"], target_dir, capture_output=True, ignore_errors=True)
 
-    # Read Subdirectories
+    # Update existing Subdirectories
     for repo_path in target_dir.iterdir():
         if not repo_path.is_dir():
             continue
@@ -79,7 +93,9 @@ def update_directory(target_dir: Path, description: str) -> None:
         git_path = repo_path / '.git'
         
         if git_path.exists():
-            print(f"{COLORS['YELLOW']}📦 Updating [{repo_path.name}]...{COLORS['NC']}")
+            # We already updated it if it was in the 'repositories' list above, 
+            # but this loop handles repos NOT in the list or ensures they are current.
+            print(f"{COLORS['YELLOW']}🔄 Checking for updates in [{repo_path.name}]...{COLORS['NC']}")
 
             try:
                 # Check for uncommitted changes (dirty state)
@@ -95,7 +111,7 @@ def update_directory(target_dir: Path, description: str) -> None:
                 # Perform the Fast-Forward Pull
                 run_cmd(["git", "pull", "--ff-only", "origin", default_branch, "--prune"], repo_path, capture_output=True)
 
-                print(f"{COLORS['GREEN']}  >> Successfully synchronized.{COLORS['NC']}")
+                print(f"{COLORS['GREEN']}  >> Successfully updated.{COLORS['NC']}")
             except subprocess.CalledProcessError:
                 print(f"{COLORS['RED']}  >> Failed: Diverged history or network error.{COLORS['NC']}", file=sys.stderr)
                 
