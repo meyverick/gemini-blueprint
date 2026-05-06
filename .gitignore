@@ -12,6 +12,7 @@
 !LICENSE.md
 !gemini-extension.json
 !update_repos.py
+!release.py
 !package.json
 !package-lock.json
 
