@@ -1,4 +1,3 @@
 prompt = """
-Read and audit the whole project to ingest the project and prepare your context. 
-Do not edit any file. Focus on identifying core patterns, architectural intent, and cross-module dependencies.
+Execute a comprehensive, read-only architectural audit of the project to establish deep context. Do not modify any files. Systematically map the codebase, explicitly excluding dependency directories (e.g., node_modules, vendor), build artifacts, and binaries. Focus on identifying core patterns, domain boundaries, and cross-module dependencies. Conclude by outputting a concise, high-level summary of the architecture to confirm your readiness.
 """

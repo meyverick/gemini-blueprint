@@ -13,21 +13,17 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-# Enable ANSI support on Windows
-if sys.platform == "win32":
-    os.system("")
-
 # Configuration
 MANIFEST_FILE = Path("gemini-extension.json")
 CHANGELOG_FILE = Path("CHANGELOG.md")
 
 # Visual Constants
 COLORS = {
-    "YELLOW": "\x1b[33m",
-    "GREEN": "\x1b[32m",
-    "RED": "\x1b[31m",
-    "CYAN": "\x1b[36m",
-    "NC": "\x1b[0m"
+    "YELLOW": "",
+    "GREEN": "",
+    "RED": "",
+    "CYAN": "",
+    "NC": ""
 }
 
 def run_cmd(command, check=True):

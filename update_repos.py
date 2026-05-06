@@ -20,17 +20,13 @@ if isinstance(sys.stdout, io.TextIOWrapper):
 if isinstance(sys.stderr, io.TextIOWrapper):
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 
-# Enable ANSI support on Windows
-if sys.platform == "win32":
-    os.system("")
-
 # Visual Constants
 COLORS = {
-    "YELLOW": "\x1b[33m",
-    "GREEN": "\x1b[32m",
-    "RED": "\x1b[31m",
-    "CYAN": "\x1b[36m",
-    "NC": "\x1b[0m"
+    "YELLOW": "",
+    "GREEN": "",
+    "RED": "",
+    "CYAN": "",
+    "NC": ""
 }
 
 def run_cmd(command: List[str], cwd: Path, capture_output: bool = False, ignore_errors: bool = False) -> str:
