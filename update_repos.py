@@ -120,13 +120,26 @@ def update_directory(target_dir: Path, description: str) -> None:
     print(f"\n{COLORS['GREEN']}✅ Process completed for {description}.{COLORS['NC']}\n")
 
 def update_repositories() -> None:
-    workspace_dir = Path.cwd() / 'references' / 'repositories'
-    extension_dir = Path(__file__).resolve().parent / 'references' / 'repositories'
+    # Resolve the directory where this script is located (the Extension directory)
+    extension_root = Path(__file__).resolve().parent
+    extension_dir = (extension_root / 'references' / 'repositories').resolve()
     
+    # Resolve the current working directory (the Workspace directory)
+    workspace_root = Path.cwd().resolve()
+    workspace_dir = (workspace_root / 'references' / 'repositories').resolve()
+    
+    print(f"{COLORS['CYAN']}🔍 Path Discovery:{COLORS['NC']}")
+    print(f"   Extension Root: {extension_root}")
+    print(f"   Workspace Root: {workspace_root}\n")
+
+    # Sync Extension repositories first
     update_directory(extension_dir, "Extension")
     
+    # Sync Workspace repositories if different from Extension
     if workspace_dir != extension_dir:
         update_directory(workspace_dir, "Workspace")
+    else:
+        print(f"{COLORS['CYAN']}ℹ️  Workspace and Extension paths are identical. Skipping redundant Workspace sync.{COLORS['NC']}\n")
 
 if __name__ == "__main__":
     update_repositories()
