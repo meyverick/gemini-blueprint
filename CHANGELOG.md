@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.6] - 2026-05-06
+
 ### Fixed
 - Enabled ANSI escape sequence support on Windows in `update_repos.py` and `release.py` to prevent raw escape codes from appearing in the console.
 
