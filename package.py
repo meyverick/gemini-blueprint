@@ -28,12 +28,25 @@ INCLUDE_LIST = [
     "update_repos.py",
 ]
 
+def rmtree_error_handler(func, path, exc_info):
+    """
+    Error handler for shutil.rmtree.
+    If the error is due to an access error (read only file)
+    it attempts to add write permission and then retries.
+    """
+    import stat
+    if not os.access(path, os.W_OK):
+        os.chmod(path, stat.S_IWUSR)
+        func(path)
+    else:
+        raise
+
 def clean():
     """Removes old dist and release directories."""
     if DIST_DIR.exists():
-        shutil.rmtree(DIST_DIR)
+        shutil.rmtree(DIST_DIR, onerror=rmtree_error_handler)
     if ARCHIVE_DIR.exists():
-        shutil.rmtree(ARCHIVE_DIR)
+        shutil.rmtree(ARCHIVE_DIR, onerror=rmtree_error_handler)
     DIST_DIR.mkdir()
     ARCHIVE_DIR.mkdir()
 
@@ -68,7 +81,7 @@ def package():
 
     # Clean up transient build directory
     print(f"\n🧹 Cleaning up transient build directory...")
-    shutil.rmtree(DIST_DIR)
+    shutil.rmtree(DIST_DIR, onerror=rmtree_error_handler)
 
     print(f"\n✅ Packaging complete. Assets are in the '{ARCHIVE_DIR}/' directory.")
 
