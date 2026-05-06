@@ -9,8 +9,15 @@ Usage: python update_repos.py
 import sys
 import subprocess
 import re
+import io
 from pathlib import Path
 from typing import List
+
+# Ensure UTF-8 encoding for stdout and stderr to handle emojis on all platforms
+if isinstance(sys.stdout, io.TextIOWrapper):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+if isinstance(sys.stderr, io.TextIOWrapper):
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 
 # Visual Constants
 COLORS = {
