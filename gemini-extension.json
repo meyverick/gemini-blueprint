@@ -1,6 +1,6 @@
 {
   "name": "gemini-blueprint",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "State-of-the-art coding standards, strict architectural principles, proactive security measures, and automated repository maintenance for Gemini CLI.",
   "contextFileName": "GEMINI.md",
   "plan": {
