@@ -13,12 +13,26 @@ A skill is a directory located in `skills/` containing:
 
 ## Built-in Skills
 
-The Blueprint includes several state-of-the-art skills:
+The Blueprint includes a suite of state-of-the-art skills categorized by their domain of expertise:
 
--   **`readme-architect`:** Generates documentation following the Stripe Benchmark.
--   **`changelog-architect`:** Manages `CHANGELOG.md` per Keep a Changelog v1.1.0.
--   **`github-wiki-master`:** Orchestrates and synchronizes repository wikis.
--   **`forensic-git-historian`:** Drafts high-fidelity, architectural commit messages.
+### Core Management Skills
+-   **`readme-architect`**: Generates documentation following the Stripe Benchmark.
+-   **`changelog-architect`**: Manages `CHANGELOG.md` per Keep a Changelog v1.1.0.
+-   **`github-wiki-master`**: Orchestrates and synchronizes repository wikis.
+-   **`forensic-git-historian`**: Drafts high-fidelity, architectural commit messages.
+
+### Framework Experts
+-   **`pixijs-expert`**: Architecting and optimizing PixiJS v8+ rendering logic.
+-   **`svelte-expert`**: Engineering Svelte 5 (Runes) and SvelteKit applications.
+-   **`tauri-expert`**: Optimizing Tauri 2.0+ desktop application architectures.
+-   **`threlte-expert`**: Engineering 3D web applications with Threlte and Svelte 5.
+
+### Utility & Introspection
+-   **`sem-version-control`**: Semantic diffing and entity-level impact analysis.
+-   **`gemini-cli-tools-desc`**: Introspects and validates CLI tool schemas.
+-   **`gemini-cli-skills-list`**: Lists and validates active agent skills.
+-   **`gemini-cli-agents-list`**: Maps the registry of available sub-agents.
+-   **`gemini-cli-mcp-desc`**: Introspects connected MCP servers and tools.
 
 ## Creating a New Skill
 

@@ -6,8 +6,8 @@ The Gemini Blueprint Workspace utilizes a modular, layer-based architecture desi
 
 The architecture is composed of four primary layers:
 
-1.  **Core Configuration Layer:** Defines the foundational rules, policies, and environment settings.
-2.  **Specialized Skills Layer:** Provides task-specific workflows (e.g., README generation, changelog maintenance).
+1.  **Core Configuration Layer:** Defines the foundational rules, commands, hooks, and environment settings.
+2.  **Specialized Skills Layer:** Provides task-specific workflows (e.g., framework experts, semantic ops, changelog maintenance).
 3.  **Agent Logic Layer:** Houses the definitions for specialized sub-agents.
 4.  **Operational Layer:** Includes scripts and tools for repository maintenance and environment synchronization.
 
@@ -19,13 +19,17 @@ graph TD
     A --> C[Specialized Skills]
     A --> D[Sub-Agents]
     
-    A --> P[Policies]
+    A --> H[Hooks]
+    A --> M[Commands]
     A --> G[GEMINI.md Instructions]
     
     C --> C1[README Architect]
     C --> C2[Changelog Architect]
     C --> C3[Wiki Master]
     C --> C4[Forensic Git Historian]
+    C --> C5[Framework Experts: PixiJS, Svelte, Tauri, Threlte]
+    C --> C6[Semantic Ops]
+    C --> C7[CLI Introspection]
     
     D --> D1[Prompt Engineer]
     D --> D2[Skill Architect]
@@ -43,8 +47,9 @@ Instructions are managed through a hierarchical system:
 - **Global Personal Memory (`~/.gemini/GEMINI.md`):** Cross-project personal preferences.
 - **Private Project Memory (`.gemini/tmp/.../MEMORY.md`):** Machine-specific or private notes.
 
-### Policy Engine
-Located in `policies/`, these TOML files define the security boundaries and execution rules for shell commands and MCP tools.
+### Commands & Hooks
+- **Commands (`commands/`):** Custom CLI commands like `/audit` defined in TOML, enabling project-wide context ingestion.
+- **Hooks (`hooks/`):** Session start triggers defined in `hooks.json` that automate repository synchronization and Git initialization.
 
 ### Repository Maintenance
 Utilities like `update_repos.py` ensure the workspace remains synchronized with its upstream dependencies, managing clones and fast-forwarding local branches.

@@ -22,8 +22,8 @@ Modern software engineering requires a cohesive balance between speed and struct
 ## Features
 
 - **Agentic Workflows:** Integrated sub-agents for prompt engineering, architectural auditing, and automated documentation.
+- **Expert Skills:** Specialized workflows for state-of-the-art frameworks including PixiJS, Svelte, Tauri, and Threlte.
 - **Semantic Versioning:** First-class support for `sem` operations, enabling entity-oriented reasoning over line-level noise.
-- **Rigorous Standards:** Built-in enforcement of SOLID, DRY, and SoC principles.
 - **Automated Governance:** Pre-configured scripts for repository health audits and changelog maintenance.
 - **Wiki Integration:** Localized wiki structure for decentralized technical documentation and operational procedures.
 
@@ -45,13 +45,16 @@ graph TD
     A --> C[Specialized Skills]
     A --> D[Sub-Agents]
     
-    A --> P[Policies]
+    A --> H[Hooks]
+    A --> M[Commands]
     A --> G[GEMINI.md Instructions]
     
     C --> C1[README Architect]
     C --> C2[Changelog Architect]
     C --> C3[Wiki Master]
     C --> C4[Forensic Git Historian]
+    C --> C5[Expert Skills: PixiJS, Svelte, Tauri, Threlte]
+    C --> C6[Semantic Ops]
     
     D --> D1[Prompt Engineer]
     D --> D2[Skill Architect]
@@ -83,7 +86,8 @@ graph TD
 
 - `agents/`: Specialized sub-agent personas.
 - `skills/`: Specialized agent workflow definitions and execution scripts.
-- `policies/`: Extension security and shell execution policies.
+- `commands/`: Custom CLI command definitions and audit prompts.
+- `hooks/`: Session lifecycle triggers and initialization hooks.
 - `gemini-extension.json`: Extension manifest and configuration.
 - `references/`: Comprehensive technical documentation and repository clones.
 - `wiki/`: Decentralized documentation for deep-dive technical specs.
