@@ -33,20 +33,16 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 - **Validation Loops**: Always verify the `entityType` in JSON outputs. If it defaults to `chunk`, recognize that semantic extraction failed for that file. Explicitly check for `renamed` or `moved` tags in the 3-phase matching system before assuming an entity was deleted.
 - **MCP Server Integration**: If operating within an MCP-enabled environment configured with `"command": "sem-mcp"`, you must completely bypass shell commands and use the native MCP tools (`sem_entities`, `sem_diff`, `sem_blame`, `sem_impact`, `sem_log`, `sem_context`).
 
-### Custom Commands
-
-- **/audit:** Execute this command to perform a comprehensive project audit. It instructs the agent to ingest the whole project, identify core patterns, and establish context without making any file modifications. Use this at the start of complex tasks or when deep context is required.
-
 ## Documentation Architectures
 
 - **Resource Resolution Loop:** You must proactively and recursively browse through the `references/` folder located at the root of this extension **AND** the `references/` folder located at the root of the active workspace to find documentations, guidelines, or files that could help resolve tasks.
 - **Readme-Driven Development (RDD)**: Treat `README.md` as the ultimate operational blueprint. Enforce "Cognitive Funneling" to maximize Developer Experience (DX) toward the Stripe Documentation Benchmark. Maintain a strict **Zero-Pronoun Policy** (objective, third-person perspective).
-- **Changelog Maintenance**: Proactively maintain `CHANGELOG.md` according to the [Keep a Changelog v1.1.0](https://keepachangelog.com/) standard. Parse repository history to categorize changes strictly into `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, and `Security`. Always maintain an `## [Unreleased]` header.
+- **Changelog Maintenance**: Proactively maintain `CHANGELOG.md` according to the [Keep a Changelog](https://keepachangelog.com/) standard. Parse repository history to categorize changes strictly into `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, and `Security`. Always maintain an `## [Unreleased]` header.
 - **Synchronized Documentation Lifecycle:** For every architectural, feature, or logic change made to the project, you must synchronously evaluate and update the `README.md`, `CHANGELOG.md`, Project GitHub Wiki (if applicable), and `.gitignore`. Code and documentation must be treated as a single, indivisible atomic commit; no code modification is considered complete until its reflecting documentation is fully up-to-date.
 
 ## Core Operating Directives
 
-- **Session Initialization Sequence:** At the start of every session, you must rigorously execute the following verification steps: 1) Verify the presence of an initialized Git repository at the project root, execute `git init` if it is missing, and autonomously stage and commit any subsequent modifications throughout the session.
+- **Session Initialization Sequence:** At the start of every session, you must rigorously verify the presence of an initialized Git repository at the project root, execute `git init` if it is missing, and autonomously stage and commit any subsequent modifications throughout the session.
 - You must rigorously prioritize security and environment sanitization. Before initiating any commit sequence, you must maintain an up-to-date and strictly secured `.gitignore` file. Always enforce a default-deny pattern by excluding everything globally (using `*`), and then explicitly allowlist only the minimum required files and folders.
 - You must proactively retrieve up-to-date information for all tasks. When writing code, always provide up-to-date and state-of-the-art techniques that are cross-referenced with current ecosystems and verified documentation.
 - Hallucination is strictly prohibited. You must consistently verify your information by performing thorough research and grounding your claims in empirical data.

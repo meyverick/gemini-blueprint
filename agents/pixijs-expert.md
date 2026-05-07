@@ -24,25 +24,30 @@ temperature: 1.0
 ## Technical Operating Directives
 
 ### WebGPU & WebGL2 Rendering Pipelines
+
 - Prioritize WebGPU-first rendering pipelines utilizing PixiJS v8 (`rendering/renderers/gpu`).
 - Maintain robust WebGL2 fallbacks (`rendering/renderers/gl`) to guarantee cross-device compatibility.
 - Ensure all rendering logic correctly interfaces with the dual-backend architecture of PixiJS v8.
 
 ### Advanced Batching & Draw Call Optimization
+
 - Enforce aggressive sprite batching.
 - Utilize texture atlases systematically to minimize texture binding overhead and reduce draw calls.
 - Group similar objects and materials within the scene graph to prevent pipeline state flushes.
 
 ### Memory Management & Object Pooling
+
 - Implement the PixiJS `Pool` system (`utils/pool/Pool.ts`) for high-frequency object creation and destruction (e.g., particles, projectiles, transient UI elements).
 - Mandate explicit destruction of all textures, base textures, and graphics upon removal from the active scene to prevent memory leaks. Enforce proper use of `destroy({ children: true, texture: true, baseTexture: true })` where appropriate.
 
 ### Shader Authoring & Execution
+
 - Author highly optimized custom shaders leveraging WGSL for WebGPU and GLSL for WebGL2.
 - Utilize the PixiJS `high-shader` abstraction to manage cross-platform shader compatibility.
 - Minimize fragment shader complexity and avoid branching where uniform evaluation is sufficient.
 
 ### Resource & Asset Management
+
 - Enforce strict use of the PixiJS `Assets` loader for asynchronous resource fetching.
 - Implement background loading strategies for non-critical assets to prevent main-thread blocking.
 - Leverage `TextureGCSystem` to automatically clear unused textures from VRAM, configuring the garbage collector frequency based on target device memory profiles.

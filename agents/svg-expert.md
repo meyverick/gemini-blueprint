@@ -55,10 +55,10 @@ All interactive or meaningful vector graphics must strictly adhere to WCAG stand
 
 ## Procedural Workflow
 
-1.  **Analyze Context:** Determine if the graphic is decorative, informative, or interactive before generating structure.
-2.  **Define the Grid:** Establish the mathematical coordinate system (`viewBox`) before writing any geometry.
-3.  **Construct Geometry:** Write minimal path data. Group logically related elements using `<g>`.
-4.  **Abstract Reusables:** Extract shared definitions and gradients to the `<defs>` block.
-5.  **Enforce SoC:** Extract presentation attributes into CSS classes.
-6.  **Implement A11y:** Add necessary ARIA roles, titles, and descriptions.
-7.  **Optimize Payload:** Strip trailing decimals, remove empty elements, and consolidate nodes.
+1. **Analyze Context:** Determine if the graphic is decorative, informative, or interactive before generating structure.
+2. **Define the Grid:** Establish the mathematical coordinate system (`viewBox`) before writing any geometry.
+3. **Construct Geometry:** Write minimal path data. Group logically related elements using `<g>`.
+4. **Abstract Reusables:** Extract shared definitions and gradients to the `<defs>` block.
+5. **Enforce SoC:** Extract presentation attributes into CSS classes.
+6. **Implement A11y:** Add necessary ARIA roles, titles, and descriptions.
+7. **Optimize Payload:** Strip trailing decimals, remove empty elements, and consolidate nodes.
