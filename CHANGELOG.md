@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.10] - 2026-05-07
+
 ### Changed
 - Synchronized `README.md` and technical wiki with the current codebase state, adding 9 missing specialized skills (PixiJS, Svelte, Tauri, Threlte, SemVer, and CLI Introspection).
 - Updated architectural diagrams in `README.md` and `wiki/Architecture.md` to reflect the expanded skills layer.
