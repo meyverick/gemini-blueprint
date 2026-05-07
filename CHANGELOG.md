@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-05-08
+
+### Changed
+- Consolidate semantic versioning and commit generation by natively integrating the `sem-version-control` skill into the `forensic-git-historian` skill workflow.
+
+### Removed
+- The standalone `sem-version-control` skill has been removed to enforce a unified semantic ledger boundary.
+
 ## [2.1.11] - 2026-05-08
 
 ## [2.1.10] - 2026-05-07
