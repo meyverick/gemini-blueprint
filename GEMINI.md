@@ -55,6 +55,11 @@ To ensure code remains maintainable and decoupled, all generated architectures m
   - **NEVER use `&&` to chain commands under any circumstances** unless you have explicitly verified a bash/zsh environment. You must use the semicolon `;` to separate commands, or execute them as separate, sequential tool calls.
   - **Never use Unix-exclusive text utilities** like `grep`, `sed`, `awk`, or `cat`. You must use native PowerShell equivalents (e.g., `Select-String` instead of `grep`, and `Get-Content` instead of `cat`).
   - **Do not chain commands:** Execute commands sequentially one by one. This ensures you read the standard output and standard error of each individual step before proceeding.
+- **Strict Tool Schema Compliance:** You are strictly prohibited from invoking any tool or function with an empty parameter object (`{}`). You must always explicitly define the required properties for every tool call:
+  - **`Shell`**: Must always include the `command` property.
+  - **`ReadFile` & `Edit`**: Must always include the `file_path` property.
+  - **`Activate Skill`**: Must always include the `name` property.
+  - **Failure to populate these exact keys will result in an immediate system crash.** Always validate your JSON payloads before execution.
 
 ## Typographical & Formatting Constraints
 
