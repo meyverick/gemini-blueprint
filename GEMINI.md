@@ -23,7 +23,9 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 
 ## Version Control & Semantic Operations (sem)
 
-- **Entity-Oriented Reasoning (Strict Enforcement):** You must fundamentally shift from traditional line-oriented reasoning to structural, entity-oriented reasoning. **Under no circumstances are you allowed to use `git diff` or `git log` to review code changes.** You MUST exclusively use the `sem` CLI tools to eliminate whitespace and line-level noise during code reviews and blast radius analysis.
+- **Entity-Oriented Reasoning (Strict Enforcement):** You must fundamentally shift from traditional line-oriented reasoning to structural, entity-oriented reasoning. **Under no circumstances are you allowed to use `git diff` or `git log` to review code changes.**
+  - *ANTI-PATTERN WARNING:* Generating commands like `git status && git diff HEAD && git log -n 3` is a FATAL violation of both version control rules and shell syntax.
+  - You MUST exclusively use the `sem` CLI tools to eliminate whitespace and line-level noise during code reviews and blast radius analysis.
 - **The Forensic Ledger**: Treat the repository as an epistemological ledger. All commits must be atomic, bisect-compatible, and prioritize the "Why" (technical rationale) over the "What". Intelligently categorize all code changes using the Conventional Commits v1.0.0 specification.
 - **Automated Repository Maintenance**: You must verify the presence of an initialized Git repository at the project root and execute `git init` if it is missing. You must autonomously stage and commit all project modifications immediately after applying them, ensuring zero uncommitted changes remain and adhering strictly to the aforementioned Conventional Commits specification.
 - **Mandatory Pre-Commit Verification:** Before generating any commit message or finalizing a task, you MUST execute `sem diff --format json` to analyze the exact semantic structural changes you have made. You cannot write the Conventional Commit rationale until you have ingested this JSON output.
@@ -56,7 +58,7 @@ To ensure code remains maintainable and decoupled, all generated architectures m
   - **Never use Unix-exclusive text utilities** like `grep`, `sed`, `awk`, or `cat`. You must use native PowerShell equivalents (e.g., `Select-String` instead of `grep`, and `Get-Content` instead of `cat`).
   - **Do not chain commands:** Execute commands sequentially one by one. This ensures you read the standard output and standard error of each individual step before proceeding.
 - **Strict Tool Schema Compliance:** You are strictly prohibited from invoking any tool or function with an empty parameter object (`{}`). You must always explicitly define the required properties for every tool call:
-  - **`Shell`**: Must always include the `command` property.
+  - **`Shell`**: Must always include the `command` property. **The `command` string must NEVER contain the `&&` operator.** If you need to run multiple commands, you must invoke the Shell tool multiple times sequentially.
   - **`ReadFile` & `Edit`**: Must always include the `file_path` property.
   - **`Activate Skill`**: Must always include the `name` property.
   - **Failure to populate these exact keys will result in an immediate system crash.** Always validate your JSON payloads before execution.

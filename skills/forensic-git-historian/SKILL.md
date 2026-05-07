@@ -1,56 +1,60 @@
 ---
 name: forensic-git-historian
-description: Transforms code changes into high-fidelity, architectural commit messages. Use when the user needs to commit changes, or requires atomic, bisect-compatible, and rationale-first version control documentation.
+description: Transforms code changes into high-fidelity, architectural commit messages using semantic AST diffing. Execute semantic version control operations (impact analysis, history, context) to avoid line-level noise. Use when committing changes, reviewing code, or analyzing blast radius.
 metadata:
-  dependencies: python>=3.9
+  dependencies: python>=3.9, sem-cli
 ---
 
-# Forensic Git Historian & Commit Architect
+# Forensic Git Historian & Semantic Ledger
 
 ## Core Mission
 
-Architect the **Epistemological Ledger** of the workspace. You do not merely summarize syntactical changes; you document the **Technical Rationale (Why)** and business logic shifts. Every commit must be a "testable unit of intent" satisfying the `git bisect` standard.
+Architect the **Epistemological Ledger** of the workspace. You do not merely summarize syntactical changes; you document the **Technical Rationale (Why)** and business logic shifts. Every commit must be a "testable unit of intent" satisfying the `git bisect` standard. You achieve this by fundamentally shifting from line-oriented reasoning (`git diff`) to structural, entity-oriented reasoning (`sem diff`).
 
-## Operational Workflow
+## 1. Semantic Execution Protocols
 
-### Phase 1: Forensic Discovery & Deterministic Security
+### A. Semantic Diffing & Code Reviews
+Always prefer semantic diffs over standard `git diff` to eliminate line-level noise.
+* **Default execution:** `sem diff`
+* **Machine-readable execution:** `sem diff --format json` (Mandatory for commit generation).
+* **Specific commit range:** `sem diff --from HEAD~3 --to HEAD --format json`
 
-1. **Change Ingestion**: Execute `git status` and `git diff HEAD` (or `git diff --staged`) to identify the modified scope.
-2. **Mandatory Watchtower Audit**: Execute `python <this-skill-folder>/scripts/security_audit.py` (resolving the path relative to this `SKILL.md` file) to programmatically verify `.gitignore` integrity and ensure no sensitive credentials or environment metadata (`.env`, `.pem`, `node_modules`) are staged. **Do not proceed if this script exits with an error code.**
-3. **Historical Alignment**: Execute `git log -n 3` to align with the existing repository style and verbosity.
+### B. Impact Analysis (Blast Radius)
+Map dependencies before recommending refactors or generating rationale.
+* **Default execution:** `sem impact <entity_name>` (append `--file <path>` for disambiguation).
+* **JSON Pipeline:** `sem impact <entity_name> --json` (Parses direct dependencies and dependents).
 
-### Phase 2: Rationale Extraction & Environment Sanitization
+### C. Token-Budgeted Context Extraction
+When loading context for complex refactors, restrict output to stay within context windows.
+* **Default execution:** `sem context <entity_name> --budget 8000 --json`
 
-1. Extract the "Why" from code patterns, developer comments, and user hints.
-2. **Environment Gotchas (CRLF vs LF)**: When analyzing diffs, aggressively filter out whitespace or line-ending noise caused by Windows (CRLF) vs. Unix (LF) environment transitions. Never document line-ending normalizations as logic changes unless explicitly requested.
-3. Identify architectural trade-offs and underlying business requirements.
-4. Apply the **Zero-Pronoun Policy**: Use explicit noun repetition instead of "it", "this", or "they".
+### D. Semantic Blame & History
+Track authors and historical changes at the structural level.
+* **Entity evolution:** `sem log <entity_name> -v --json`
+* **File-level entity blame:** `sem blame <file_path> --json`
 
-### Phase 3: Message Synthesis
+## 2. The Semantic-Forensic Commit Workflow
 
-1. Consult **[commit-standards.md](<this-skill-folder>/references/commit-standards.md)** for strict formatting rules (Subject line ≤ 50 chars, 72-char body wrap).
-2. Apply the **Conventional Commits v1.0.0** typology.
-3. Ensure the Subject Line completes the semantic construct: "If applied, the commit will...".
-4. Draft the message with an absolute focus on rationale-first content.
+### Phase 1: Structural Discovery & Deterministic Security
+1. **Mandatory Watchtower Audit**: Execute `python <this-skill-folder>/scripts/security_audit.py` to programmatically verify `.gitignore` integrity. **Do not proceed if this exits with an error code.**
+2. **Semantic Ingestion**: Execute `sem diff --format json` (never `git diff`) to extract exact structural and logical changes (e.g., added parameters, changed return types, new classes).
+3. **Validation Loop**: Verify the `entityType` in JSON outputs. If it reads `chunk`, semantic extraction failed for that file. Explicitly check for `renamed` or `moved` tags before assuming an entity was deleted.
+
+### Phase 2: Rationale Extraction & Blast Radius
+1. Automatically trigger `sem impact <entity_name> --json` for critical modified entities to determine the "Blast Radius."
+2. Extract the "Why" from the structural impact analysis, developer comments, and user hints. Focus purely on logical entity changes.
+3. Apply the **Zero-Pronoun Policy**: Use explicit noun repetition instead of "it", "this", or "they".
+
+### Phase 3: Version Calibration & Synthesis
+1. Consult **[commit-standards.md](<this-skill-folder>/references/commit-standards.md)** for formatting rules.
+2. Analyze the `sem diff` output to automatically determine SemVer impact (e.g., a breaking signature change triggers a `!` prefix).
+3. Apply the **Conventional Commits v1.0.0** typology.
+4. Ensure the Subject Line completes the construct: "If applied, the commit will...".
 
 ### Phase 4: Quality Assurance
-
-1. Perform a final audit against the checklist in **[commit-standards.md](<this-skill-folder>/references/commit-standards.md)**.
-2. Ensure periods and commas are placed **OUTSIDE** quotation marks.
-3. Wrap the final commit message in `<commit_message>` tags.
+1. Ensure periods and commas are placed **OUTSIDE** quotation marks.
+2. Wrap the final commit message in `<commit_message>` tags.
 
 ### Phase 5: Post-Commit Synchronization (Mandatory)
-
 1. **Trigger**: Immediately after successfully executing the `git commit` command.
 2. **Action**: Invoke the **changelog-architect** skill.
-3. **Objective**: Synchronize `changelog.md` with the newly created commit to ensure historical continuity.
-
-## Mandatory Output Format
-
-```xml
-<commit_message>
-<type>(<scope>)<!>: <description>
-
-<rationale_body>
-</commit_message>
-```

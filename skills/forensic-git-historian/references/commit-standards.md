@@ -1,6 +1,7 @@
 # Commit Standards: The Forensic Ledger
 
 ## 1. The Epistemological Ruleset
+
 | Rule | Specification |
 | :--- | :--- |
 | **Separation** | Separate the subject line from the body with exactly one blank line. |
@@ -13,6 +14,7 @@
 | **Style** | Place periods and commas outside quotation marks unless part of the original quote. |
 
 ## 2. Conventional Commits v1.0.0
+
 | Type | Semantic Meaning | SemVer Impact |
 | :--- | :--- | :--- |
 | **feat** | A new feature | MINOR |
@@ -28,10 +30,12 @@
 | **revert** | Reversal of a previous commit | VARIES |
 
 **Format:** `<type>(<scope>)<!>: <description>`
+
 - **Scope:** Optional noun identifying the subsystem (e.g., `parser`, `auth`). Lowercase only.
 - **Breaking Change:** Append `!` after type/scope and use `BREAKING CHANGE:` footer.
 
 ## 3. Security & Integrity Mandate (The "Watchtower" Step)
+
 Before any commit is finalized, the **Forensic Git Historian** must audit the `.gitignore` configuration to prevent data leaks.
 
 | Check | Objective |
@@ -42,6 +46,7 @@ Before any commit is finalized, the **Forensic Git Historian** must audit the `.
 | **Staged Verification** | Cross-reference `git status` output against `.gitignore` to ensure no sensitive files are accidentally tracked or staged. |
 
 ## 4. Post-Commit Synchronization Mandate
+
 To maintain the **Epistemological Ledger's** integrity, the project `changelog.md` must be updated immediately following a successful commit.
 
 | Action | Mandate |
@@ -51,12 +56,14 @@ To maintain the **Epistemological Ledger's** integrity, the project `changelog.m
 | **Verification** | Ensure the new commit is reflected in the `## [Unreleased]` or latest version section. |
 
 ## 5. Metadata & Trailers
+
 - **Separator:** Footers follow the body, separated by a blank line.
 - **Syntax:** `Token: <value>` or `Token #<value>`.
 - **Token Formatting:** Hyphenate tokens (e.g., `Refs-to:`, `Co-authored-by:`).
 - **Issue Reference:** Use `Refs: #123` or `Closes: #123`.
 
 ## 6. Boundary Enforcement (Negative Constraints)
+
 - **NO SYNTAX DESCRIPTION:** Do not describe code syntax (e.g., "Add if statement"). Describe the logic.
 - **NO GENERIC SUBJECTS:** Never use "Update code", "Fix bug", or "Work in progress".
 - **NO PLACEHOLDERS:** Never include "unchanged code" or "..." in any description.
@@ -64,6 +71,7 @@ To maintain the **Epistemological Ledger's** integrity, the project `changelog.m
 - **NO TRAILING PERIODS:** Ensure the subject line ends without a period.
 
 ## 7. Final Quality Assurance Checklist
+
 - [ ] Subject line is ≤ 50 characters, capitalized, and in imperative mood.
 - [ ] Subject line has NO trailing period.
 - [ ] Body lines are wrapped at exactly 72 characters.
@@ -74,3 +82,17 @@ To maintain the **Epistemological Ledger's** integrity, the project `changelog.m
 - [ ] Technical Rationale (Why) is clearly articulated in the body.
 - [ ] Conventional Commit type is strictly correct.
 - [ ] Output is wrapped in `<commit_message>` tags.
+
+## 8. MCP Server Integration (Semantic Engine)
+
+If the environment supports MCP (Model Context Protocol), configure the server block as follows rather than executing CLI commands. When active, fallback to native MCP tools (`sem_entities`, `sem_diff`, `sem_blame`, `sem_impact`, `sem_log`, `sem_context`):
+
+```json
+{
+  "mcpServers": {
+    "sem": {
+      "command": "sem-mcp"
+    }
+  }
+}
+```
