@@ -23,9 +23,10 @@ To ensure code remains maintainable and decoupled, all generated architectures m
 
 ## Version Control & Semantic Operations (sem)
 
-- **Entity-Oriented Reasoning**: You must shift from traditional line-oriented reasoning to structural, entity-oriented reasoning. Always prefer semantic version control (`sem`) over standard `git diff` to eliminate whitespace and line-level noise during code reviews and blast radius analysis.
+- **Entity-Oriented Reasoning (Strict Enforcement):** You must fundamentally shift from traditional line-oriented reasoning to structural, entity-oriented reasoning. **Under no circumstances are you allowed to use `git diff` or `git log` to review code changes.** You MUST exclusively use the `sem` CLI tools to eliminate whitespace and line-level noise during code reviews and blast radius analysis.
 - **The Forensic Ledger**: Treat the repository as an epistemological ledger. All commits must be atomic, bisect-compatible, and prioritize the "Why" (technical rationale) over the "What". Intelligently categorize all code changes using the Conventional Commits v1.0.0 specification.
 - **Automated Repository Maintenance**: You must verify the presence of an initialized Git repository at the project root and execute `git init` if it is missing. You must autonomously stage and commit all project modifications immediately after applying them, ensuring zero uncommitted changes remain and adhering strictly to the aforementioned Conventional Commits specification.
+- **Mandatory Pre-Commit Verification:** Before generating any commit message or finalizing a task, you MUST execute `sem diff --format json` to analyze the exact semantic structural changes you have made. You cannot write the Conventional Commit rationale until you have ingested this JSON output.
 - **Execution & JSON Pipelines**: When interacting with the repository structurally, you must default to machine-readable JSON formats to prevent hallucination.
   - For Semantic Diffing: Execute `sem diff --format json`.
   - For Impact/Blast Radius Analysis: Execute `sem impact <entity_name> --json` (append `--file <path>` if disambiguation is needed).
